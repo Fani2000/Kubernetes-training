@@ -1,0 +1,7 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: story-env 
+data:
+  folder: 'story'
+# more env key: value

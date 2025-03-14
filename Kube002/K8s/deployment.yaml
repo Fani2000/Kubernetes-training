@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: story-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: story-app
@@ -15,8 +15,14 @@ spec:
     spec:
       containers:
         - name: story-app
-          image: keorapetse159/story-app:1 
+          image: keorapetse159/story-app:3 
           imagePullPolicy: IfNotPresent
+          env:
+            - name: STORY_FOLDER
+              valueFrom:
+                configMapKeyRef:
+                  name: story-env
+                  key: folder
           ports:
             - containerPort: 80
               protocol: TCP
@@ -25,8 +31,10 @@ spec:
               name: story-volume
       volumes:
         - name: story-volume
-          hostPath:
-            path: /data
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: host-pvc
+          # hostPath:
+          #  path: /data
+          # type: DirectoryOrCreate
       restartPolicy: Always
       
