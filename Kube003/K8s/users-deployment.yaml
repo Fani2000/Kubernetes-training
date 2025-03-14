@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      name: users-api
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-api
+          image: keorapetse159/users-api
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: AUTH_ADDRESS
+              value: "auth-service.default"
