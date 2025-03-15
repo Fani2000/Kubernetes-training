@@ -17,10 +17,11 @@ spec:
     spec:
       containers:
         - name: tasks
-          image: nginx
+          image: keorapetse159/task-api:v1
           imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-              protocol: TCP
-      restartPolicy: Always
+          env:
+            - name: AUTH_ADDRESS
+              value: "auth-service.default"
+            - name: TASKS_FOLDER
+              value: tasks
       
